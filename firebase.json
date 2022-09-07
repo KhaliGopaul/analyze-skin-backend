@@ -1,22 +1,15 @@
+
 {
   "hosting": {
-    "public": "public",
-    "rewrite": [{
+    "rewrites": [{
       "source": "**",
-      "function": "app"
+      "function": "api"
     }],
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
-  },
-  "functions": {
-    "ignore": [
-      "node_modules",
-      ".git",
-      "firebase-debug.log",
-      "firebase-debug.*.log"
     ]
   },
   "emulators": {

@@ -1,20 +1,15 @@
-import { connectDb } from "./connectDb.js"
+import { connectDb } from "./connectDb.js";
 
 export const getProducts = (req, res) => {
-    const db = connectDb()
-    db.collection("products")
-        .get()
-        .then(() => {})
-        .then(() => {})
-        .catch(() => {})
-}
-
-
-export const getProductsById = (req, res) => {
-    const db = connectDb()
-    db.collection("products")
-        .get("id")
-        .then(() => {})
-        .then(() => {})
-        .catch(() => {})
-}
+  const db = connectDb();
+  db.collection("Products")
+    .get()
+    .then((snapshot) => {
+      const products = snapshot.docs.map((doc) => {
+        let product = doc.data();
+        product.id = doc.id;
+        return product;
+      });
+      res.status(200).send(products);
+    });
+};
