@@ -1,32 +1,31 @@
-import { connectDb } from "./connectDb.js"
-
-
-
+import { connectDb } from "./connectDb.js";
 
 export const createReviews = (req, res) => {
-    const db = connectDb() 
-    const newReview={review: req.body.review, name: req.body.name}
-    db.collection("reviews").add(newReview)
+  const db = connectDb();
+  const newReview = { review: req.body.review, name: req.body.name };
+  db.collection("userReviews")
+    .add(newReview)
     .then(res.send(newReview))
-    .catch(console.error)
-
-
-}
+    .catch(console.error);
+};
 
 export const updateReviewsById = (req, res) => {
-    db.collection("reviews")
+  db.collection("reviews")
     .get()
     .then(() => {})
-    .catch(() => {})
-}
+    .catch(() => {});
+};
 
-export async function getReviews(req, res) {
-    const db = dbConnect();
-    const collection = await db.collection("reviews").get();
-    const reviews = collection.docs.map((doc) => {
-      let review = doc.data();
-      review.id = doc.id;
-      return review;
+export function getReviews(req, res) {
+  const db = connectDb();
+  db.collection("userReviews")
+    .get()
+    .then((snapshot) => {
+      const reviews = snapshot.docs.map((doc) => {
+        let review = doc.data();
+        review.id = doc.id;
+        return review;
+      });
+      res.status(200).send(reviews);
     });
-    res.send(reviews);
-  }
+}
