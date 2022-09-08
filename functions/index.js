@@ -27,5 +27,8 @@ app.get("/products", getProducts);
 // app.patch("/reviews/:id", updateReviewsById);
 
 app.get("/skinTypes", getSkinTypes);
+app.post("/reviews", createReviews)
+
+app.get("/reviews", getReviews)
 
 export const api = functions.https.onRequest(app);
